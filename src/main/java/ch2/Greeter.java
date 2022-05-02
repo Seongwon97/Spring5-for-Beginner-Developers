@@ -1,4 +1,4 @@
-package spring5forbeginnerdevelopers.ch2;
+package ch2;
 
 public class Greeter {
 

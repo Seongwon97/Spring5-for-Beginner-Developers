@@ -9,5 +9,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework:spring-context:5.0.2.RELEASE'
+    implementation 'org.springframework:spring-context:5.3.19'
 }
