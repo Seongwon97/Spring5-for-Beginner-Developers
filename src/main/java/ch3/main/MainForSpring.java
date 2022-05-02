@@ -1,7 +1,8 @@
 package ch3.main;
 
 import ch3.RegisterRequest;
-import ch3.config.AppCtx;
+import ch3.config.AppCtx1;
+import ch3.config.AppCtx2;
 import ch3.exception.DuplicateMemberException;
 import ch3.exception.MemberNotFoundException;
 import ch3.exception.WrongIdPasswordsException;
@@ -22,7 +23,7 @@ public class MainForSpring {
     private static ApplicationContext ctx = null;
 
     public static void main(String[] args) throws IOException {
-        ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+        ctx = new AnnotationConfigApplicationContext(AppCtx1.class);
         // AnnotationConfigApplicationContext를 통한 스프링 컨테이너 생성
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
