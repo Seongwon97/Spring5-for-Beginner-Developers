@@ -1,46 +1,49 @@
 package ch4.config;
 
+import ch4.printer.*;
 import ch4.service.ChangePasswordService;
 import ch4.dao.MemberDao;
 import ch4.service.MemberRegisterService;
-import ch4.printer.MemberInfoPrinter;
-import ch4.printer.MemberListPrinter;
-import ch4.printer.MemberPrinter;
-import ch4.printer.VersionPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppCtx2 {
 
-    @Autowired
-    private MemberDao memberDao;
-    @Autowired
-    private MemberPrinter memberPrinter;
+    @Bean
+    @Qualifier("printer")
+    public MemberPrinter memberPrinter() {
+        return new MemberPrinter();
+    }
+
+    @Bean
+    @Qualifier("summaryPrinter")
+    public MemberSummaryPrinter memberPrinter2() {
+        return new MemberSummaryPrinter();
+    }
 
     @Bean
     public MemberRegisterService memberRegSvc() {
-        return new MemberRegisterService(memberDao);
+        return new MemberRegisterService();
     }
 
     @Bean
     public ChangePasswordService changePwdSvc() {
         ChangePasswordService pwdSvc = new ChangePasswordService();
-        pwdSvc.setMemberDao(memberDao);
         return pwdSvc;
     }
 
     @Bean
     public MemberListPrinter listPrinter() {
-        return new MemberListPrinter(memberDao, memberPrinter);
+        return new MemberListPrinter();
     }
 
     @Bean
     public MemberInfoPrinter infoPrinter() {
         MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-        infoPrinter.setMemberDao(memberDao);
-        infoPrinter.setPrinter(memberPrinter);
+        infoPrinter.setPrinter(memberPrinter2());
         return infoPrinter;
     }
 

@@ -4,12 +4,16 @@ import ch4.RegisterRequest;
 import ch4.dao.MemberDao;
 import ch4.domain.Member;
 import ch4.exception.DuplicateMemberException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
 public class MemberRegisterService {
 
+    @Autowired
     private MemberDao memberDao;
+
+    public MemberRegisterService() {}
 
     public MemberRegisterService(MemberDao memberDao) {
         this.memberDao = memberDao;

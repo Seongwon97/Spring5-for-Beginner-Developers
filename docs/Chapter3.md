@@ -72,7 +72,7 @@ Assembler와 Spring의 차이점은 Assember대신 스프링 컨테이너(Applic
 - `@Autowired`은 스프링 빈에 의존하는 다른 빈을 자동으로 주입하고 싶을 때 사용한다.
 - 해당 어노테이션을 붙여주면 해당 타입의 빈을 찾아서 해당 필드에 할당해준다.
   - 의존하는 빈들을 클래스 코드에서 `@Autowired`를 사용하여 필드에 추가를 하면, `@Bean`메서드를 통해 빈을 생성할 때, 된 빈의 의존 주입을 위한 코드를 작성하지 않아도 된다.
-
+  - `@Autowired`는 변수와 메서드 둘 다 붙일 수 있다.
 ```java
 public class ChangePasswordService {
     @Autowired

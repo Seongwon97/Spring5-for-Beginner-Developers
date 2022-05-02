@@ -2,6 +2,8 @@ package ch4.printer;
 
 import ch4.dao.MemberDao;
 import ch4.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class MemberInfoPrinter {
 
@@ -18,10 +20,13 @@ public class MemberInfoPrinter {
         System.out.println();
     }
 
+    @Autowired
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
+    @Autowired
+    @Qualifier("printer")
     public void setPrinter(MemberPrinter printer) {
         this.printer = printer;
     }
