@@ -5,9 +5,11 @@ import ch5.dao.MemberDao;
 import ch5.domain.Member;
 import ch5.exception.DuplicateMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class MemberRegisterService {
 
     @Autowired

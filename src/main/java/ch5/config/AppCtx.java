@@ -1,21 +1,16 @@
 package ch5.config;
 
-import ch5.dao.MemberDao;
-import ch5.printer.*;
-import ch5.service.ChangePasswordService;
-import ch5.service.MemberRegisterService;
+import ch5.printer.MemberPrinter;
+import ch5.printer.MemberSummaryPrinter;
+import ch5.printer.VersionPrinter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 @Configuration
+@ComponentScan(basePackages = {"ch5"})
 public class AppCtx {
-
-    @Bean
-    public MemberDao memberDao() {
-        return new MemberDao();
-    }
 
     @Bean
     @Qualifier("printer")
@@ -27,29 +22,6 @@ public class AppCtx {
     @Qualifier("summaryPrinter")
     public MemberSummaryPrinter memberPrinter2() {
         return new MemberSummaryPrinter();
-    }
-
-    @Bean
-    public MemberRegisterService memberRegSvc() {
-        return new MemberRegisterService();
-    }
-
-    @Bean
-    public ChangePasswordService changePwdSvc() {
-        ChangePasswordService pwdSvc = new ChangePasswordService();
-        return pwdSvc;
-    }
-
-    @Bean
-    public MemberListPrinter listPrinter() {
-        return new MemberListPrinter();
-    }
-
-    @Bean
-    public MemberInfoPrinter infoPrinter() {
-        MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-        infoPrinter.setPrinter(memberPrinter2());
-        return infoPrinter;
     }
 
     @Bean

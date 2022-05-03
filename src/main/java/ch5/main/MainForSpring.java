@@ -58,7 +58,7 @@ public class MainForSpring {
             printHelp();
             return;
         }
-        MemberRegisterService service = ctx.getBean("memberRegSvc", MemberRegisterService.class);
+        MemberRegisterService service = ctx.getBean(MemberRegisterService.class);
         RegisterRequest request = new RegisterRequest();
         request.setEmail(args[1]);
         request.setName(args[2]);
@@ -82,7 +82,7 @@ public class MainForSpring {
             printHelp();
             return;
         }
-        ChangePasswordService service = ctx.getBean("changePwdSvc", ChangePasswordService.class);
+        ChangePasswordService service = ctx.getBean(ChangePasswordService.class);
         try {
             service.changePassword(args[1], args[2], args[3]);
             System.out.println("암호를 변경했습니다. \n");
