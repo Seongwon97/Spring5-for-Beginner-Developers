@@ -12,3 +12,5 @@ create table MEMBER (
     REGDATE datetime,
     unique (EMAIL)
 ) engine=InnoDB character set=utf8;
+
+insert into MEMBER (EMAIL, PASSWORD, NAME, REGDATE) values ('madvirus@madvirus.net', '1234', 'cbk', now());
