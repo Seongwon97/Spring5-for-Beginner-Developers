@@ -11,4 +11,7 @@ repositories {
 dependencies {
     implementation 'org.springframework:spring-context:5.3.19'
     implementation 'org.springframework:spring-aspects:5.3.19'
+    implementation 'org.springframework:spring-jdbc:5.3.19'
+    implementation 'org.apache.tomcat:tomcat-jdbc:10.0.20'
+    implementation 'mysql:mysql-connector-java:8.0.29'
 }
