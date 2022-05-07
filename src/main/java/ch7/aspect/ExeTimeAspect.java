@@ -5,10 +5,12 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 
 import java.util.Arrays;
 
 @Aspect
+@Order(2)
 public class ExeTimeAspect {
 /*
 @Aspect를 적용한 클래스는 Advice와 PointCut을 함께 제공한다.
@@ -17,7 +19,7 @@ public class ExeTimeAspect {
     @Pointcut("execution(public * ch7.calculator..*(..))") // 공통 기능을 적용할 대상을 설정
     // ch7 패키지와 그 하위 패키지에 위치한 타입의 public메서드를 Pointcut으로 설정
     // 패키지 위치 설정할 때, 순환 참조를 조심해야한다.
-    private void publicTarget() {
+    public void publicTarget() {
     }
 
     /*

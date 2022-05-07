@@ -115,4 +115,41 @@ public class AppCtx {
   - Aspect를 적용하기 위해서는 해당 어노테이션을 설정 클래스에 붙인 후 Aspect클래스를 Bean으로 등록해줘야 한다.
   
 > 위의 코드를 통해 aspect가 적용되는 메서드를 실행해보면, 해당 객체는 원본 타입의 클래스가 아닌 Proxy 타입으로 실행이 된다.
-> 그 이유는 AOP를 적용할 경우 스프링이 실행하고자 하는 메서드를 실행하기 전에 Proxy객체를 생성하여 공통기능 적용 후 실행 메서드를 실행하기 떄문이다.ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+> 그 이유는 AOP를 적용할 경우 스프링이 실행하고자 하는 메서드를 실행하기 전에 Proxy객체를 생성하여 공통기능 적용 후 실행 메서드를 실행하기 떄문이다.
+
+> - `@Around("execution(public * ch7.calculator..*(..))")`와 같이 `@Pointcut`이 아닌 `@Around`에 execuiton명시자를 직접 지정할 수도 있다.
+> - `@Pointcut`은 공통된다면 메서드를 public으로 지정을 하여 재사용할 수도 있다.
+>    - 공통으로 사용되는 Pointcut들은 별도의 클래스를 만들어 관리하는 것도 좋은 방법이다. (해당 클래스는 빈으로 등록할 필요가 없다.) 
+    
+
+
+## 프록시 생성방식
+📌 프록시는 객체를 생성할 때 빈 객체가 인터페이스를 상속하면 인터페이스를 이용해서 프록시를 생성한다.
+
+그래서 인터페이스를 상속받은 하위 클래스를 이용해 `getBean()`을 사용할 경우, 다음과 같은 에러가 발생한다.
+```shell
+Exception in thread "main" org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named 'calculator' is expected to be of type 'ch7.calculator.RecCalculator' but was actually of type 'com.sun.proxy.$Proxy18'
+```
+
+빈 객체가 인터페이스를 상속할 떄 인터페이스가 아닌 클래스를 이용해서 프록시를 생성하고 싶다면 다음과 같이 `EnableAspectJAutoProxy`의 속성을 설정해야 한다.
+`@EnableAspectJAutoProxy(proxyTargetClass = true)`와 같이 `proxyTargetClass`속성을 true로 변경해주면 인터페이스가 아닌 자바 클래스를 상속받아 프록시를 생성해줘서 구현(실제, 하위)클래스를 이용해 빈 객체를 구할 수 있습니다.
+
+## Pointcut의 execution
+> execution(수식어패턴? 리턴타입패턴 클래스이름패턴? 메서드이름패턴(파라미터패턴))
+
+execution의 기본 형식은 다음과 같다. 
+- 수식어패턴
+  - 생략 가능하며 public, protected등이 온다. 하지만 스프링 AOP에서는 public에서만 가능하다.
+- 리턴타입패턴
+  - 반환 타입을 명시한다.
+- 클래스이름패턴, 메서드이름패턴, 파라미터패턴
+  - 클래스 및 메서드 이름을 패턴으로 명시한다.
+
+책 169페이지 예시 참조할 것.
+
+## 여러 Advice 적용
+스프링에서는 한나의 Pointcut에 여러 Advice를 적용할 수 있다.
+
+Advice를 적용하는 방법은 위와 동일하게 Aspect를 생성하고 Bean을 등록해주면 된다. 
+하지만 어떤 Aspect가 먼저 적용될지는 스프링 프레임워크나 자바 버전에 따라 달라질 수 있기에 적용 순서가 중요하면 `@Order`를 통해 직접 순서를 지정해줘야 한다.
+- `@Order`은 값이 작을수록 먼저 적용된다.
