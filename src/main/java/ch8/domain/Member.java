@@ -1,6 +1,6 @@
 package ch8.domain;
 
-import ch6.exception.WrongIdPasswordsException;
+import ch8.exception.WrongIdPasswordsException;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,7 @@
 package ch8.printer;
 
-import ch6.dao.MemberDao;
-import ch6.domain.Member;
+import ch8.dao.MemberDao;
+import ch8.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

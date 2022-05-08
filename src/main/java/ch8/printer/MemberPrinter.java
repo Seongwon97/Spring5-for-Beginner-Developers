@@ -1,6 +1,6 @@
 package ch8.printer;
 
-import ch6.domain.Member;
+import ch8.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 

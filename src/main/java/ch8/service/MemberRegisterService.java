@@ -1,9 +1,9 @@
 package ch8.service;
 
-import ch6.RegisterRequest;
-import ch6.dao.MemberDao;
-import ch6.domain.Member;
-import ch6.exception.DuplicateMemberException;
+import ch8.RegisterRequest;
+import ch8.dao.MemberDao;
+import ch8.domain.Member;
+import ch8.exception.DuplicateMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
