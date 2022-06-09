@@ -1,4 +1,4 @@
-# Chapter 13
+# Chapter13
 ## 컨트로러의 HttpSession
 1. 요청 매핑 어노테이션 적용 메서드에 HttpSession 파라미터를 추가한다.
 2. 요청 매핑 어노테이션 적용 메서드에 HttpServletRequest 파라미터를 추가하고 HttpServletRequest를 이용하여 HttpSession을 구한다.

@@ -1,3 +1,4 @@
+# Chapter11
 ## Get과 Post의 구분
 - @RequestMapping 으로 경로 지정을 할 경우, Spring MVC는 별도의 설정이 없으면 Get, Post 방식에 상관없이 지정한 경로와 일치하는 요청들을 처리한다.
 - Spring 4.3버전 이후로는 @PostMapping, @GetMapping과 같이 요청 method별로 어노테이션이 있어 요청 제한을 할 수 있다.

@@ -1,5 +1,6 @@
-# AOP
-## 준비
+# Chapter7
+## AOP
+### 준비
 Spring에서 AOP를 사용하기 위해서는 `aspectjweaver`의존성을 추가해줘야 한다.
 - `aspectjweaver` 모듈은 AOP를 설정하는데 필요한 어노테이션을 제공한다.
 - 스프링의 AOP 기능은 `spring-aop`모듈이 제공하는데, 해당 모듈은 `spring-context` 모듈을 의존 대상에 추가하면 자동으로 포함된다.
@@ -7,7 +8,7 @@ Spring에서 AOP를 사용하기 위해서는 `aspectjweaver`의존성을 추가
 
 - [MavenRepository-aspectjweaver](https://mvnrepository.com/artifact/org.aspectj/aspectjweaver)
 
-## 프록시(Proxy)란?
+### 프록시(Proxy)란?
 책에서 소개하는 Calculator예시를 보면 factorial메서드의 핵심 로직들은 Calculator 인터페이스를 상속한 ImpeCalculator와 RecCalculator들이 갖고
 ExeTimeCalculator는 Calculator 인터페이스를 상속하지만 factorial의 핵심 로직을 다른 객체에게 위임하고 부가적인 기능을 제공합니다.
 
@@ -15,12 +16,12 @@ ExeTimeCalculator는 Calculator 인터페이스를 상속하지만 factorial의 
 
 > 책에서 위의 예시들은 프록시보다는 데코레이터(decorator)에 가깝다고 한다. 프록시는 접근 제어 관점에 초점이 맞춰져 있고, 데코레이터는 기능 추가와 확장에 초점이 맞춰져 있다.
 
-## AOP란?
+### AOP란?
 - AOP는 Aspect(관심) Oriented Programming의 약자로, 여러 객체에 공통으로 적용할 수 있는 기능을 분리해서 재사용성을 높여주는 프로그래밍 기법이다.
 - 핵심 기능과 공통 기능을 분리함으로써 **핵심 기능을 구현한 코드의 수정 없이 공통 기능을 적용 및 수정할 수 있다.**
 - 스프링은 프록시를 이용해 AOP를 구현한다. (AOP를 적용하여 실행되는 메서드들은 전부 생성한 빈 타입이 아니고 프록시 타입으로 실행된다.)
 
-### 핵심 기능에 공통 기능을 넣는 방법
+#### 핵심 기능에 공통 기능을 넣는 방법
 - 방법 1. 컴파일 시점에 코드에 공통 기능을 삽입하는 방법
   - AOP 개발 독가 소스코드 컴파일 전에 공통 구현 코드를 소스코드에 삽입하는 방식으로 동작한다.
 
@@ -32,14 +33,14 @@ ExeTimeCalculator는 Calculator 인터페이스를 상속하지만 factorial의 
 
 > 📌 스프링은 프록시를 이용해 메서드 호출 시점에 Aspect를 적용한다.
 
-### AOP 주요 용어
+#### AOP 주요 용어
 - **Aspect**: AOP에서의 공통 기능을 의미한다. 트랜잭션이나 보안 등이 좋은 예시이다.
 - **Advice**: 언제 공통 관심 기능을 핵심 로직에 적용할지를 정의하고 있다.
 - **Joinpoint**: Adcice를 적용 가능한 지점을 의미한다. 메서드 호출, 필드 값 변경 등이 해당된다. (스프링은 프록시를 사용해서 AOP를 구현하기 때문에 메서드 호출에 대한 Joinpoint만 지원한다.)
 - **Pointcut**: Joinpoint의 부분 집합으로 실제 Advice가 적용되는 Joinpoint를 나타낸다. (스프링에서는 정규 표현식이나 AspectJ의 문법을 이용하여 Pointcut을 정의할 수 있다.)
 - **Weaving**: Advice를 핵심 로직 코드에 적용하는 것을 의미한다.
 
-### Advice의 종류
+#### Advice의 종류
 - **Before Advice**: 대상 객체의 메서드 호출 전에 기능을 실행한다.
 - **After Returning Advice**: 대상 객체의 메서드가 예외 없이 실행된 이후에 공통 기능을 실행한다.
 - **After Throwing Advice**: 대상 객체의 메서드를 실행하는 도중 익셉션이 발생한 경우에 공통 기능을 실행한다.
@@ -48,7 +49,7 @@ ExeTimeCalculator는 Calculator 인터페이스를 상속하지만 factorial의 
 
 > Around Advice가 다양한 시점에 사용 가능하여 가장 널리 사용된다. 이후 나올 내용도 모두 Around Advice 내용이다.
 
-## 스프링 AOP 적용 방법
+### 스프링 AOP 적용 방법
 1. Aspect로 사용할 클래스에 @Aspect 어노테이션을 붙인다. 
 2. @Pointcut 어노테이션으로 공통 기능을 적용할 Pointcut을 정의한다.
 3. 공통 기능을 구현한 메서드에 @Around 어노테이션을 적용한다.
@@ -123,7 +124,7 @@ public class AppCtx {
     
 
 
-## 프록시 생성방식
+### 프록시 생성방식
 📌 프록시는 객체를 생성할 때 빈 객체가 인터페이스를 상속하면 인터페이스를 이용해서 프록시를 생성한다.
 
 그래서 인터페이스를 상속받은 하위 클래스를 이용해 `getBean()`을 사용할 경우, 다음과 같은 에러가 발생한다.
@@ -134,7 +135,7 @@ Exception in thread "main" org.springframework.beans.factory.BeanNotOfRequiredTy
 빈 객체가 인터페이스를 상속할 떄 인터페이스가 아닌 클래스를 이용해서 프록시를 생성하고 싶다면 다음과 같이 `EnableAspectJAutoProxy`의 속성을 설정해야 한다.
 `@EnableAspectJAutoProxy(proxyTargetClass = true)`와 같이 `proxyTargetClass`속성을 true로 변경해주면 인터페이스가 아닌 자바 클래스를 상속받아 프록시를 생성해줘서 구현(실제, 하위)클래스를 이용해 빈 객체를 구할 수 있습니다.
 
-## Pointcut의 execution
+### Pointcut의 execution
 > execution(수식어패턴? 리턴타입패턴 클래스이름패턴? 메서드이름패턴(파라미터패턴))
 
 execution의 기본 형식은 다음과 같다. 
@@ -147,7 +148,7 @@ execution의 기본 형식은 다음과 같다.
 
 책 169페이지 예시 참조할 것.
 
-## 여러 Advice 적용
+### 여러 Advice 적용
 스프링에서는 한나의 Pointcut에 여러 Advice를 적용할 수 있다.
 
 Advice를 적용하는 방법은 위와 동일하게 Aspect를 생성하고 Bean을 등록해주면 된다. 

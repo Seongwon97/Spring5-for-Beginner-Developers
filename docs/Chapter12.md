@@ -1,3 +1,4 @@
+# Chapter12
 뷰에서 여러 페이지에 중복된 내용들이 존재하는 경우 해당 내용이 변경되었을 때, 여러 내용들을 변경해줘야한다는 유지보수 측면의 문제가 있다.
 
 Spring에서는 `MessageSource`빈과 `<spring:message>` 태그를 통해 해당 문제를 쉽게 해결할 수 있다.
@@ -6,16 +7,16 @@ Spring에서는 `MessageSource`빈과 `<spring:message>` 태그를 통해 해당
   - 주의할 점: 빈의 아이디를 무조건 messageSource로 설정하여야한다. 그러지 않으면 정상적으로 동작하지 않는다.
 - JSP 코드에서 `<spring:message = ~~>` 태그를 사용하여 메시지를 출력한다.
 
-# MessageSource
+## MessageSource
 스프링에서는 로케일(지역)에 상관없이 일관된 방법으로 문자열을 관리할 수 있는 MessageSource인터페이스를 정의하고 있다.
 덕분에 같은 코드라도 지역에 따라 다른 메시지를 제공할 수 있다. 특정 로케일에 해당하는 메시지가 필요한 코드는 `getMessage()`메서드를 이용해 필요한 메시지를 가녀올 수 있다.
 
 `<spring:message = ~~>` 태그는를 실행하면 스프링 설정에 등록된 `MessageSource` 빈의 `getMessage()`메서드를 이용해서 메시지를 구하게 된다.
 
-# Validation
+## Validation
 스프링 MVC는 모든 컨트롤러에 적용할 수 있는 글로벌 Validator와 단일 컨트롤러에 적용할 수 있는 Validator를 설정하는 방법을 제공하고 있다.
 
-## 글로벌 범위의 Validator
+### 글로벌 범위의 Validator
 **적용 순서**
 1. 설정 크래스에서 `WebMvcConfigurer`의 `getValidator()`메서드가 Validator 구현 객체를 반환하도록 구현한다.
   - 스프링 MVC는 `getValidator()`가 반환하는 객체를 글로벌 범위의 Validator로 사용한다. 이를 지정하면 `@Valid`를 통해 검증을 적용할 수 있다.
@@ -62,7 +63,7 @@ public class RegisterControllerWithLocalValidator {
 >    - Javax 의존성: `implementation 'javax.validation:validation-api:2.0.1.Final'`
 >    - 스프링 부트 Validation 의존성: `implementation 'org.springframework.boot:spring-boot-starter-validation'`
 
-## 컨트롤러 범위의 Validator
+### 컨트롤러 범위의 Validator
 `@InitBinder`를 사용하면 컨트롤러 범위의 Validator를 설정할 수 있다. (p.344)
 
 ```java
@@ -84,7 +85,7 @@ public class RegisterControllerWithLocalValidator {
 > - `setValidators()`를 실행하면 해당 컨트롤러에 사용될 Validator를 지정한다.
 > - `addValidators()`는 글로벌 범위의 Validator 뒤에 새로운 컨트롤러 범위의 Validator를 추가한다.
 
-## Bean Validation 어노테이션
+### Bean Validation 어노테이션
 - `@AssertTrue`, `@AssertFalse`: 값이 true인지 false인지 검사한다. (null은 유효하다고 판단)
 - `@DecimalMax`, `@DecimalMin`: 지정한 값보다 크거나 같은지, 작거나 같은지 확인한다. (null은 유효하다고 판단)
 - `@Max`, `@Min`: 지정한 값보다 작은지, 큰지 검사한다. (null은 유효하다고 판단)

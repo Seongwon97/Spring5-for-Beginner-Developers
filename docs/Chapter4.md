@@ -1,4 +1,5 @@
-# 의존 자동 주입
+# Chapter4
+## 의존 자동 주입
 ```java
 @Configuration
 @Import(AppCtx2.class)
@@ -21,7 +22,7 @@ public class AppCtx1 {
 - 자동 주입 기능은 스프링 3,4 버전에서는 호불호가 갈렸으나 스프링 부트가 나오면서 의존 자동 주입을 사용하는 추세로 바뀌었다. (거의 기본으로 사용한다.)
 - 자동 주입은 `@Autowired`를 사용하여 한다.
 
-## Autowired
+### Autowired
 - `@Autowired`은 스프링 빈에 의존하는 다른 빈을 자동으로 주입하고 싶을 때 사용한다.
 - 해당 어노테이션을 붙여주면 해당 **타입** 의 빈을 찾아서 해당 필드에 할당해준다.
   - 의존하는 빈들을 클래스 코드에서 `@Autowired`를 사용하여 필드에 추가를 하면, `@Bean`메서드를 통해 빈을 생성할 때, 된 빈의 의존 주입을 위한 코드를 작성하지 않아도 된다.
@@ -50,7 +51,7 @@ public class AppCtx1 {
         this.dateTimeFormatter = dateTimeFormatter;
     }
 ```
-## Autowired 관련 예외
+### Autowired 관련 예외
 - 자동 주입할 빈이 존재하지 않을 경우 아래와 같은 예외가 발생한다. (NoSuchBeanDefinitionException)
 ```
 Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'ch4.dao.MemberDao' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
@@ -62,7 +63,7 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'ch4.printer.MemberPrinter' available: expected single matching bean but found 2: memberPrinter,memberPrinter2
 ```
 
-## @Qualifier
+### @Qualifier
 - 해당 어노테이션은 자동 주입 가능한 빈이 2개 이상일 경우 자동 주입할 빈을 한정할 수 있다.
 - `@Qualifier`는 두 위치에 붙이며 사용한다.
   - `@Bean`을 붙인 빈 설정 메서드 위와 `@Autowired`를 하는 메서드나 필드 위에 아래와 같이 지정을 하며 사용한다.
